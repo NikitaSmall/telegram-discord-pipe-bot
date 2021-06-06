@@ -7,5 +7,5 @@ import (
 )
 
 func handleMessage(session *discordgo.Session, message *discordgo.MessageCreate) {
-	log.Printf("handling discord message %s", message.Content)
+	log.Printf("handling discord message %s", message.ChannelID)
 }
