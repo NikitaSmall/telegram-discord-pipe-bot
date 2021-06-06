@@ -8,6 +8,10 @@ import (
 )
 
 func (ds DiscordSession) handleMessage(session *discordgo.Session, message *discordgo.MessageCreate) {
+	if message.Author.ID == session.State.User.ID {
+		return
+	}
+
 	log.Printf("handling discord message %s", message.ChannelID)
 
 	switch {
