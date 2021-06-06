@@ -1,7 +1,25 @@
 package main
 
-import "fmt"
+import (
+	"log"
+	"os"
+	"os/signal"
+	"syscall"
+
+	"telegram-discord-pipe-bot/cmd"
+)
 
 func main() {
-	fmt.Println("hello there!")
+	log.Println("start pipe bot")
+	discordTerminate, _ := terminateSignals()
+
+	cmd.DiscordStart(discordTerminate)
+}
+
+// TODO: add telegram signal too
+func terminateSignals() (chan os.Signal, chan os.Signal) {
+	discordTerminate := make(chan os.Signal)
+	signal.Notify(discordTerminate, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
+
+	return discordTerminate, nil
 }
