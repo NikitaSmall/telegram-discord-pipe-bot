@@ -12,7 +12,7 @@ func DiscordStart(terminateSignal chan os.Signal, botConfig interfaces.BotConfig
 
 	ds := discord.Start(botConfig)
 	defer func() {
-		if err := ds.Close(); err != nil {
+		if err := ds.DG.Close(); err != nil {
 			log.Printf("error closing discord bot session: %e", err)
 		}
 	}()
