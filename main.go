@@ -7,13 +7,14 @@ import (
 	"syscall"
 
 	"telegram-discord-pipe-bot/cmd"
+	"telegram-discord-pipe-bot/config"
 )
 
 func main() {
 	log.Println("start pipe bot")
 	discordTerminate, _ := terminateSignals()
 
-	cmd.DiscordStart(discordTerminate)
+	cmd.DiscordStart(discordTerminate, config.GetDiscordCondig())
 }
 
 // TODO: add telegram signal too
