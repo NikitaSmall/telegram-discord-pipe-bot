@@ -8,13 +8,16 @@ import (
 
 	"telegram-discord-pipe-bot/cmd"
 	"telegram-discord-pipe-bot/config"
+	"telegram-discord-pipe-bot/models"
 )
 
 func main() {
 	log.Println("start pipe bot")
 	discordTerminate, _ := terminateSignals()
 
-	cmd.DiscordStart(discordTerminate, config.GetDiscordCondig())
+	discordChan := make(chan models.Message)
+	telegramChan := make(chan models.Message)
+	cmd.DiscordStart(discordTerminate, config.GetDiscordCondig(), discordChan, telegramChan)
 }
 
 // TODO: add telegram signal too
