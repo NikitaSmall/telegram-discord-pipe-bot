@@ -9,6 +9,7 @@ import (
 
 var (
 	errNoChannelRegistered = errors.New("no channel with given id is registered")
+	errAlreadyRegistered   = errors.New("the given channel is already registered")
 )
 
 type Memory struct {

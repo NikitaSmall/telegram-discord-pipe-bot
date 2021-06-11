@@ -12,10 +12,9 @@ import (
 func DiscordStart(terminateSignal chan os.Signal, botConfig interfaces.BotConfiger, discordChan, telegramChan chan models.Message) {
 	log.Println("start discord bot initialize process")
 
-	// TODO: add storage option
-	inMemoryStorage := storage.NewInmemory()
-	inMemoryStorage.PopulateCommunicationList()
-	ds := discord.New(botConfig, inMemoryStorage, discordChan, telegramChan)
+	storage := storage.NewFirestore("discord")
+	storage.PopulateCommunicationList()
+	ds := discord.New(botConfig, storage, discordChan, telegramChan)
 
 	ds.Start()
 	defer func() {
