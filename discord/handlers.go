@@ -25,7 +25,7 @@ func (ds DiscordSession) handleMessage(session *discordgo.Session, message *disc
 }
 
 func (ds DiscordSession) handleRegister(session *discordgo.Session, message *discordgo.MessageCreate) {
-	log.Printf("proxy register %s", message.ChannelID)
+	log.Printf("proxy register discord %s", message.ChannelID)
 
 	channel, err := session.Channel(message.ChannelID)
 	if err != nil {
@@ -40,7 +40,7 @@ func (ds DiscordSession) handleRegister(session *discordgo.Session, message *dis
 }
 
 func (ds DiscordSession) handleUnregister(session *discordgo.Session, message *discordgo.MessageCreate) {
-	log.Printf("proxy unregister %s", message.ChannelID)
+	log.Printf("proxy unregister discord %s", message.ChannelID)
 
 	if err := ds.commStorage.Unregister(message.ChannelID); err != nil {
 		session.ChannelMessageSend(message.ChannelID, fmt.Sprintf("cannot unregister channel %s with err %s", message.ChannelID, err.Error()))
@@ -50,16 +50,16 @@ func (ds DiscordSession) handleUnregister(session *discordgo.Session, message *d
 }
 
 func (ds DiscordSession) handleRegularMessage(session *discordgo.Session, message *discordgo.MessageCreate) {
-	log.Printf("proxy regular message %s", message.ChannelID)
+	log.Printf("proxy regular message discord %s", message.ChannelID)
 
 	isRegistered, err := ds.commStorage.IsRegistered(message.ChannelID)
 	if err != nil {
-		log.Printf("cannot extract if the message is from registered channel with err: %e", err)
+		log.Printf("cannot extract if the message is from discord registered channel with err: %e", err)
 		return
 	}
 
 	if !isRegistered {
-		log.Printf("get message from unregistered channel, exiting")
+		log.Printf("get message from unregistered discord channel, exiting")
 		return
 	}
 

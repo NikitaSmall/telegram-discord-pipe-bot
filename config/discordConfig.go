@@ -17,13 +17,13 @@ func (dc DiscordConfig) GetToken() string {
 
 var discordConfig DiscordConfig
 
-func init() {
+func GetDiscordCondig() DiscordConfig {
+	return discordConfig
+}
+
+func initDiscord() {
 	log.Println("parsing configuration for discord")
 	if err := cleanenv.ReadEnv(&discordConfig); err != nil {
 		log.Fatalf("error parsing configuration for discord: %e", err)
 	}
-}
-
-func GetDiscordCondig() DiscordConfig {
-	return discordConfig
 }
